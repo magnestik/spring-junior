@@ -7,7 +7,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.PropertySource;
 
-@ComponentScan(basePackages = "ru.iteco.teachbase.springjunior.account")
+@ComponentScan
 @PropertySource("classpath:application.properties")
 public class Main {
     private static final Logger log = LoggerFactory.getLogger(Main.class);
@@ -22,7 +22,7 @@ public class Main {
         String intValueInfo = personalInformationService.getIntValueInfo();
         log.info(intValueInfo);
         log.info(personalInformationService.getProxyLazyInfo());
-        log.info("personalInformationService.getLazyInfo(): ", personalInformationService.getLazyInfo());
+        log.info("personalInformationService.getLazyInfo(): {}", personalInformationService.getLazyInfo());
 
 /*
         PersonalInformationService personalInformationService1 = app.getBean(PersonalInformationService.class);
