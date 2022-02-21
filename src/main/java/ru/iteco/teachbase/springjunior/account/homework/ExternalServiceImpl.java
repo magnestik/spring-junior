@@ -2,13 +2,17 @@ package ru.iteco.teachbase.springjunior.account.homework;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import java.util.HashMap;
 
+import static org.springframework.beans.factory.config.ConfigurableBeanFactory.SCOPE_PROTOTYPE;
+
 @Component
+@Scope(SCOPE_PROTOTYPE)
 public class ExternalServiceImpl implements ExternalService {
     private static final Logger log = LoggerFactory.getLogger(ExternalServiceImpl.class);
     private static final HashMap<Integer, ExternalInfo> externalInfoHashMap = new HashMap<>();
