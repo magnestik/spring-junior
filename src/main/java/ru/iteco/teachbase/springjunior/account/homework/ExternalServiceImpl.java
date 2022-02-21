@@ -9,11 +9,11 @@ import javax.annotation.PreDestroy;
 import java.util.HashMap;
 
 @Component
-public class ExternalServiceImpl {
+public class ExternalServiceImpl implements ExternalService {
     private static final Logger log = LoggerFactory.getLogger(ExternalServiceImpl.class);
-    private final HashMap<Integer, ExternalInfo> externalInfoHashMap = new HashMap<>();
+    private static final HashMap<Integer, ExternalInfo> externalInfoHashMap = new HashMap<>();
 
-//    @Override
+    @Override
     @CacheResult
     public ExternalInfo getExternalInfo(Integer id) {
         ExternalInfo externalInfo = externalInfoHashMap.get(id);

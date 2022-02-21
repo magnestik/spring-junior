@@ -4,6 +4,7 @@ import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.annotation.AnnotationUtils;
 
 import java.lang.reflect.Method;
 import java.util.Map;
@@ -18,7 +19,17 @@ public class CacheResultMethodInterceptor implements MethodInterceptor {
         log.info("Before call method in CacheResult");
         Object proceed = null;
         Method method = invocation.getMethod();
-        if (method.isAnnotationPresent(CacheResult.class)) {
+        boolean isAnnotationMethod = method.isAnnotationPresent(CacheResult.class);
+        if (!isAnnotationMethod) {
+            for (Method declaredMethod : invocation.getThis().getClass().getDeclaredMethods()) {
+                if (method.getName().equals(declaredMethod.getName()) &&
+                    AnnotationUtils.findAnnotation(declaredMethod, CacheResult.class) != null) {
+                    isAnnotationMethod = true;
+                    break;
+                }
+            }
+        }
+        if (isAnnotationMethod) {
             log.info("Call method, result of which need to be added to Cache");
             String methodName = method.getName();
             if (cacheMap.get(methodName) == null) {

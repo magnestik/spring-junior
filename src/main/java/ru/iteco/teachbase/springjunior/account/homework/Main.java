@@ -9,12 +9,10 @@ import org.springframework.context.annotation.PropertySource;
 public class Main {
     public static void main(String[] args) {
         AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(Main.class);
-/*
         Flow flow = applicationContext.getBean(Flow.class);
         flow.run(1);
         flow.run(2);
         flow.run(3);
         flow.run(4);
-*/
     }
 }

@@ -10,9 +10,9 @@ public class Flow {
     private static final Logger log = LoggerFactory.getLogger(Flow.class);
 
     private final Process process;
-    private final ExternalServiceImpl externalService;
+    private final ExternalService externalService;
 
-    public Flow(ExternalServiceImpl externalService, @Lazy Process process) {
+    public Flow(ExternalService externalService, @Lazy Process process) {
         this.process = process;
         this.externalService = externalService;
     }
