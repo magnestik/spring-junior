@@ -58,13 +58,15 @@ public class CacheResultMethodInterceptor implements MethodInterceptor {
     }
 
     private MethodArgs getMethodArgs(Object[] args) {
-        return new MethodArgs(List.of(args));
+        LinkedList<Object> objects = new LinkedList<>();
+        Collections.addAll(objects, args);
+        return new MethodArgs(objects);
     }
 
     private static final class MethodArgs {
-        private final List<Object> args;
+        private final LinkedList<Object> args;
 
-        private MethodArgs(List<Object> args) {
+        private MethodArgs(LinkedList<Object> args) {
             this.args = args;
         }
 
