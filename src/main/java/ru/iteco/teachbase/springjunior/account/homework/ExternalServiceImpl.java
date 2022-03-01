@@ -19,6 +19,7 @@ public class ExternalServiceImpl implements ExternalService {
 
     @Override
     @CacheResult
+    @PrintResult
     public ExternalInfo getExternalInfo(Integer id) {
         ExternalInfo externalInfo = externalInfoHashMap.get(id);
         log.info("ExternalService getExternalInfo(id = {}): {}", id, externalInfo);

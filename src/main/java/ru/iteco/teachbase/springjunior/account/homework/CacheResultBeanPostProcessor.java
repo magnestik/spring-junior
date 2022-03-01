@@ -2,12 +2,9 @@ package ru.iteco.teachbase.springjunior.account.homework;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.aop.framework.ProxyFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.stereotype.Component;
-
-import java.lang.reflect.Method;
 
 @Component
 public class CacheResultBeanPostProcessor implements BeanPostProcessor {
@@ -20,6 +17,7 @@ public class CacheResultBeanPostProcessor implements BeanPostProcessor {
 
     @Override
     public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
+/*
         log.info("postProcessAfterInitialization: beanName: {}", beanName);
         Method[] methods = bean.getClass().getDeclaredMethods();
         for (Method method : methods) {
@@ -30,6 +28,7 @@ public class CacheResultBeanPostProcessor implements BeanPostProcessor {
                 return proxyFactory.getProxy();
             }
         }
+*/
         return bean;
     }
 }
