@@ -1,5 +1,6 @@
 package ru.iteco.teachbase.springjunior.account.aop.aspect;
 
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.slf4j.Logger;
@@ -12,7 +13,8 @@ public class RepositoryAspect {
     private static final Logger LOG = LoggerFactory.getLogger(RepositoryAspect.class);
 
     @Before("within(ru.iteco.teachbase.springjunior.account.aop.repository.*)")
-    public void beforeAllRepositoryAdvice() {
-        LOG.info("beforeAllRepositoryAdvice: try call any method in 'repository'");
+    public void beforeAllRepositoryAdvice(JoinPoint joinPoint) {
+        LOG.info("beforeAllRepositoryAdvice: try call {} with Args: {} in 'repository'",
+            joinPoint.getSignature().toShortString(), joinPoint.getArgs());
     }
 }

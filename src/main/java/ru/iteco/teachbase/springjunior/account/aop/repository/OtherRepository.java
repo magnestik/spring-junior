@@ -8,8 +8,15 @@ import org.springframework.stereotype.Component;
 public class OtherRepository {
     private static final Logger LOG = LoggerFactory.getLogger(OtherRepository.class);
     
-    public String getInfo() {
+    public String getInfo(User user) {
         LOG.info("Call OtherRepository.getInfo()");
         return "OTHER_INFO";
+    }
+
+    public void saveInfo(String info) {
+        if (info == null) {
+            throw new RuntimeException("NULL not saved!");
+        }
+        LOG.info("SAVE INFO: {}", info);
     }
 }

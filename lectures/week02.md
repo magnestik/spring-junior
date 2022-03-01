@@ -78,7 +78,6 @@
     <artifactId>aspectjweaver</artifactId>
 </dependency>
 ```
-Регулировать очередность выполнения аспектов можно через Spring-аннотацию `@Order(...)`
 
 ## АОП. Advice типы
 
@@ -152,3 +151,97 @@ public void entityCreationMethods() {}
 
 _Pointcut_ регистрируются в репозитории и далее можно обращаться по названию метода pointcut. Мы можем написать 
 их где-то отдельно (PointcutRepository) и использовать их в аспектах, комбинировать как-то.
+
+## АОП. Порядок выполнения Aspect
+
+Если при вызове метода с основной логикой срабатывает несколько Advice, то нет никакой гарантии в порядке выполнения
+этих Advice. Для соблюдения порядка, такие Advice нужно распределить по отдельным упорядоченным Aspect классам.
+
+Регулировать очередность выполнения аспектов можно через Spring-аннотацию `@Order(...)`. Чем меньше число, тем выше 
+приоритет.
+
+## АОП. JoinPoint
+
+**Join Point** - это точка в выполняемой программе когда следует применять Advice. Т.е. это точка переплетения метода 
+с бизнес-логикой и метода со служебным функционалом.
+
+Прописав Join Point в параметре Advice-метода, мы получаем доступ к метаданным метода с бизнес-логикой (сигнатуры, 
+аргументы).
+
+```
+@Before("myPointcut()")
+public void methodAdvice(JoinPoint joinPoint) {
+    joinPoint.getArgs();
+}
+```
+
+Его методы:
++ **getArgs()** - возвращает аргументы вызываемого метода, если их нет, то вернется пустой массив;
++ **getStaticPart()** - статический набор методов, нужен для ускорения работы advice, т.е. если мы понимаем что из joinPoint
+нам хватит сигнатуры (не нужны аргументы метода, которые меняются в runtime), то можем написать в advice 
+`JoinPoint.StaticPart` - вложенный интерфейс который содержит в себе только статическую информацию, определяемую на этапе
+инициализации контекста, за счет этого работает быстрее;
++ **toString()** - вернет информацию по _JoinPoint_ в формате `String`;
++ **getKind()** - этап, на котором вызван наш _Advice_;
++ **getSignature()** - сигнатура нашего метода, имя, доступ, возвращаемый результат;
++ **getThis()** - объект, на котором вызван метод;
++ **toLongString()** - полное описание _JoinPoint_;
++ **toShortString()** - короткое описание _JoinPoint_.
+
+## АОП. After returning
+
+![img.png](assets/img8.png)
+
+Выполняется только после **корректного** окончания метода с основной логикой.
+
+```
+@AfterReturning(value = "allGetMethod()", returning = "result")
+public void afterAllGetMethodAdvice(JoinPoint joinPoint, Object result) {...}
+```
+где _value_ - Pointcut-designator, _returning_ - имя возвращаемого выполненным методом объекта.
+**ВАЖНО!** Результат работы в данном Advice менять не стоит, для этого используется другой Advice.
+
+## АОП. After throwing
+
+![img.png](assets/img9.png)
+
+Выполняется после окончания метода с основной логикой только, если было выброшено исключение.
+```
+@AfterThrowing(value = "allSaveMethod()", throwing = "exception")
+public void afterSaveMethodThrowAdvice(JoinPoint joinPoint, Exception exception) {...}
+```
+Как и с `@AfterReturning` в данном Advice не желательно менять Exception, есть другой метод. Нужен для информатирования,
+проверок и иных подобных(не модифицирующих) действий.
+
+## АОП. After / After Finally
+
+![img.png](assets/img10.png)
+
+В любом случае выполняется после окончания метода с основной логикой.
+```
+@After("allSaveMethod() || allGetMethod()")
+public void afterSaveAndGetMethodAdvice(JoinPoint joinPoint) {...}
+```
+
+## АОП. Around
+
+![img.png](assets/img11.png)
+
+Выполняется до и после метода с основной логикой.
+
+Возможности **@Around**:
++ Произвести действия до работы основного (target) метода;
++ Произвести действия после работы основного метода;
++ Получить результат работы основного метода и изменить его;
++ Произвести действия, если из основного метода выбрасывается исключения (вернуть другой результат);
++ Не вызывать метод, если какие-то условия не выполнены;
++ и т.д.
+
+```
+@Around(value = "allGetMethodWithUser(user)", argNames = "proceedingJoinPoint,user")
+public Object aroundAllGetMethodCheckAdvice(ProceedingJoinPoint proceedingJoinPoint, User user) throws Throwable {...}
+```
+`proceedingJoinPoint.proceed()` - запуск основного метода.
+`proceedingJoinPoint.proceed(Object[] args)` - запуск основного метода с заменой аргументов нашего метода 
+(`joinPoint.getArgs()`) с бизнес-логикой. В этом случае количество аргументов должно совпадать с основным методом.
+
