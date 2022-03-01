@@ -5,6 +5,8 @@ import org.springframework.aop.framework.ProxyFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.stereotype.Component;
+import ru.iteco.teachbase.springjunior.account.homework.annotation.CacheResult;
+import ru.iteco.teachbase.springjunior.account.homework.annotation.PrintResult;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;

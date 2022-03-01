@@ -1,9 +1,12 @@
-package ru.iteco.teachbase.springjunior.account.homework;
+package ru.iteco.teachbase.springjunior.account.homework.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+import ru.iteco.teachbase.springjunior.account.homework.annotation.CacheResult;
+import ru.iteco.teachbase.springjunior.account.homework.model.ExternalInfo;
+import ru.iteco.teachbase.springjunior.account.homework.annotation.PrintResult;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;

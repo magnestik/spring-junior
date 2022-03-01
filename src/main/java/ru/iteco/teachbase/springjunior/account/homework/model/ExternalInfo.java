@@ -1,4 +1,4 @@
-package ru.iteco.teachbase.springjunior.account.homework;
+package ru.iteco.teachbase.springjunior.account.homework.model;
 
 public class ExternalInfo {
     private Integer id;
