@@ -11,4 +11,12 @@ public class ExternalRepository {
     public void setInfo(String info) {
         LOG.info("Set info in ExternalRepository. Info: {}", info);
     }
+
+    public String getInfo(String user) {
+        if ("user1".equals(user)) {
+            return "EXTERNAL_INFO";
+        } else {
+            throw new RuntimeException("User not access!");
+        }
+    }
 }

@@ -6,6 +6,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.PropertySource;
+import ru.iteco.teachbase.springjunior.account.aop.repository.ExternalRepository;
 import ru.iteco.teachbase.springjunior.account.aop.repository.OtherRepository;
 import ru.iteco.teachbase.springjunior.account.aop.repository.User;
 
@@ -25,8 +26,9 @@ public class Main {
         ExternalService externalServiceOther = applicationContext.getBean("externalServiceOther", ExternalService.class);
 //        LOG.info("Result call externalServiceOther.getInfo(): {}", externalServiceOther.getInfo(2L));
 
-//        ExternalRepository externalRepository = applicationContext.getBean(ExternalRepository.class);
+        ExternalRepository externalRepository = applicationContext.getBean(ExternalRepository.class);
 //        externalRepository.setInfo("INFO IN REPO");
+        LOG.info("externalRepository.getInfo return: {}", externalRepository.getInfo("user1"));
 
         OtherRepository otherRepository = applicationContext.getBean(OtherRepository.class);
         User user1 = new User(1, "user1");
