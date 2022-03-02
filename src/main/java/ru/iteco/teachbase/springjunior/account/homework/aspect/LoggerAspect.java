@@ -1,6 +1,8 @@
 package ru.iteco.teachbase.springjunior.account.homework.aspect;
 
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.slf4j.Logger;
@@ -21,16 +23,11 @@ public class LoggerAspect {
         return proceed;
     }
 
-    @Around(value = "within(ru.iteco.teachbase.springjunior.account.homework..*)")
-    public Object logAllThrownMethodAdvice(ProceedingJoinPoint proceedingJoinPoint) {
-        String shortSignature = proceedingJoinPoint.getSignature().toShortString();
-        Object proceed = null;
-        try {
-            proceed = proceedingJoinPoint.proceed();
-        } catch (Throwable e) {
-            LOG.error("logAllThrownMethodAdvice: Method {} return Exception: {}", shortSignature, e.toString());
-        }
-        return proceed;
+    @AfterThrowing(value = "within(ru.iteco.teachbase.springjunior.account.homework..*)", throwing = "exception")
+    public void logAllThrownMethodAdvice(JoinPoint joinPoint, Exception exception) {
+        String shortSignature = joinPoint.getSignature().toShortString();
+        String o1 = exception.toString();
+        LOG.error("logAllThrownMethodAdvice: END {} WITH THROW: {}", shortSignature, o1);
     }
 
 }

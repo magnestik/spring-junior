@@ -16,7 +16,7 @@ public class ExternalInfoProcess implements Process {
 
     @Override
     @CheckRequest
-    public boolean run(ExternalInfo externalInfo) {
+    public Boolean run(ExternalInfo externalInfo) {
         log.info("ExternalInfoProcess.run(ExternalInfo): true");
         return true;
     }

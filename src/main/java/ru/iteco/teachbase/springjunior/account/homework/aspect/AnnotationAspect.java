@@ -24,7 +24,7 @@ public class AnnotationAspect {
     @Value("${id-not-process}")
     private Integer idNotProcess;
 
-    @Around(value = "externalInfoArgMethod(externalInfo) && checkRequestAnnotatedMethod()", argNames = "proceedingJoinPoint,externalInfo")
+    @Around(value = "allMethodMarkCheckRequestAndHaveExternalInfoInArg(externalInfo)", argNames = "proceedingJoinPoint,externalInfo")
     public Object argWithExternalInfoMethodAdvice(ProceedingJoinPoint proceedingJoinPoint, ExternalInfo externalInfo) throws Throwable {
         String shortSignature = proceedingJoinPoint.getSignature().toShortString();
         LOG.info("argWithExternalInfoMethodAdvice: Method {} with arg externalInfo {}", shortSignature, externalInfo);
@@ -72,12 +72,8 @@ public class AnnotationAspect {
         return result;
     }
 
-    @Pointcut(value = "execution(* *(..,ru.iteco.teachbase.springjunior.account.homework.model.ExternalInfo,..)) && args(externalInfo,..)")
-    public void externalInfoArgMethod(ExternalInfo externalInfo) {
-    }
-
-    @Pointcut("@annotation(ru.iteco.teachbase.springjunior.account.homework.annotation.CheckRequest)")
-    public void checkRequestAnnotatedMethod() {
+    @Pointcut("@annotation(ru.iteco.teachbase.springjunior.account.homework.annotation.CheckRequest) && args(externalInfo,..)")
+    public void allMethodMarkCheckRequestAndHaveExternalInfoInArg(ExternalInfo externalInfo) {
 
     }
 
