@@ -18,10 +18,11 @@ public class Main {
         externalService.getExternalInfo(1);
 
         Flow flow = applicationContext.getBean(Flow.class);
+        flow.run(1);
+        flow.run(2);
         flow.run(3);
-//        flow.run(2);
-//        flow.run(3);
-//        flow.run(4);
+        flow.run(4);
+        flow.run(10);
 
         applicationContext.close();
     }
