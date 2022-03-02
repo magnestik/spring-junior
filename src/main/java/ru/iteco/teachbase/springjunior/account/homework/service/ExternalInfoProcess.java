@@ -1,11 +1,11 @@
-package ru.iteco.teachbase.springjunior.account.homework;
+package ru.iteco.teachbase.springjunior.account.homework.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-
-import java.util.Objects;
+import ru.iteco.teachbase.springjunior.account.homework.annotation.CheckRequest;
+import ru.iteco.teachbase.springjunior.account.homework.model.ExternalInfo;
 
 @Component
 public class ExternalInfoProcess implements Process {
@@ -15,9 +15,9 @@ public class ExternalInfoProcess implements Process {
     private Integer idNotProcess;
 
     @Override
+    @CheckRequest
     public boolean run(ExternalInfo externalInfo) {
-        boolean b = !Objects.equals(externalInfo.getId(), idNotProcess);
-        log.info("ExternalInfoProcess.run(ExternalInfo) : {}", b);
-        return b;
+        log.info("ExternalInfoProcess.run(ExternalInfo): true");
+        return true;
     }
 }
