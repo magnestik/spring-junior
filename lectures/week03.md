@@ -124,3 +124,48 @@ destroy-методов и т.д.
 + **spring-boot-starter-cloud-*** - набор стартеров для разработки в Cloud. 
 
 Стартеров очень много, можно найти на странице spring boot
+
+## Spring Boot. Starter web
+
+Если необходимо создать какое-то web-приложение(или RESTful) то наш выбор - Spring Boot Starter Web
+
+```xml
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-web</artifactId>
+</dependency>
+```
+Определяет зависимости:
++ **Spring**: core, beans, context, aop
++ **Web MVC**: Spring MVC
++ **Jackson**: для работы с JSON
++ **Валидация**: Hibernate Validator, Validation API
++ **Embedded** Servlet Container: Tomcat
++ **Логгирование**: logback, slf4j
+
+## Spring Boot. Spring MVC
+**Spring MVC** - фреймворк для создания веб-приложений на Java в основе которого лежит шаблон проектирования 
+MVC(model-view-controller).
+
+**Model** - компонент, отвечающий за данные приложения и работу с этими данными, т.е. помогает взаимодействовать 
+приложению с какими-то внешними данными;
+
+**View** - компонент, отвечающий за взаимодействие с пользователем. Определяет внешний вид приложения;
+
+**Controller** - компонент, отвечающий за связь между Model и View. Здесь сосредоточена логика работы приложения 
+(бизнес-логика)
+
+### Spring MVC. Dispatcher Servlet
+Вся логика работы Spring MVC построена вокруг Dispatcher Servlet, который принимает и обрабатывает все http-запросы 
+и ответы на них.
+
+Рабочий процесс обработки запросов Dispatcher Servlet:
+
+![img.png](assets/img12.png)
+
+1) Наш HTTP-запрос приходит в Dispatcher Servlet
+2) Dispatcher Servlet обращается к интерфейсу Handler Mapping, который определяет какой контроллер должен быть вызван
+3) Dispatcher Servlet отправляет запрос в нужный контроллер (из предыдущего шага). Контроллер принимает запрос и 
+вызывает соответствующий метод. Вызванный метод определяет модели, основанные на определенной бизнес-логике и возвращает в Dispatcher Servlet имя 
+нашего представления
+4) 
