@@ -1,8 +1,15 @@
 package ru.iteco.teachbase.springjunior.account.model;
 
 public class UserNotFoundException extends RuntimeException {
+    private Integer idNotFound;
+
     public UserNotFoundException(String message) {
         super(message);
+    }
+
+    public UserNotFoundException(String message, Integer idNotFound) {
+        super(message + " ID: " + idNotFound);
+        this.idNotFound = idNotFound;
     }
 
     public UserNotFoundException(String message, Throwable cause) {
@@ -18,5 +25,9 @@ public class UserNotFoundException extends RuntimeException {
     }
 
     public UserNotFoundException() {
+    }
+
+    public Integer getIdNotFound() {
+        return idNotFound;
     }
 }
