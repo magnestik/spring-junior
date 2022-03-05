@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import ru.iteco.teachbase.springjunior.account.model.ErrorDto;
 import ru.iteco.teachbase.springjunior.account.model.UserNotFoundException;
 
-@RestControllerAdvice
+@RestControllerAdvice(basePackageClasses = UserRestController.class)
 public class UserRestExceptionHandler {
 
     @ResponseStatus(HttpStatus.NOT_FOUND)

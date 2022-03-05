@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
     public UserDto findById(Integer id) {
         UserDto userDto = userDtoMap.get(id);
         if (userDto == null) {
-            throw new RuntimeException("Пользователь не найден!");
+            throw new UserNotFoundException("Пользователь не найден!");
         }
         return userDto;
     }
