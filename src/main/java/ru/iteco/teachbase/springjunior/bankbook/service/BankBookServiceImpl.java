@@ -35,9 +35,13 @@ public class BankBookServiceImpl implements BankBookService {
 
     @Override
     public List<BankBookDto> findAllByUserId(Integer userId) {
-        return bankBookMap.values().stream()
+        List<BankBookDto> bankBookDtos = bankBookMap.values().stream()
             .filter(bankBookDto -> bankBookDto.getUserId().equals(userId))
             .collect(Collectors.toList());
+        if (bankBookDtos.isEmpty()) {
+            throw new BankBookNotFoundException("Для данного пользователя нет счетов!");
+        }
+        return bankBookDtos;
     }
 
     @Override
@@ -57,7 +61,7 @@ public class BankBookServiceImpl implements BankBookService {
             .filter(bankBookDto -> bankBookDto.getCurrency().equals(bankBook.getCurrency()))
             .findFirst()
             .ifPresent(bankBookDto -> {
-                throw new BankBookByUserExistException("Cчёт с данной валютой для данного клиента уже имеется в хранилище",
+                throw new BankBookByUserExistException("Cчёт с данной валютой для данного клиента уже имеется в хранилище!",
                     bankBookDto.getUserId());
             });
         int id = seqId.getAndIncrement();
@@ -75,13 +79,8 @@ public class BankBookServiceImpl implements BankBookService {
         if (!bankBook.getNumber().equals(bankBookDto.getNumber())) {
             throw new BankBookChangeNumberException("Изменение номера счёта запрещено!");
         }
-        bankBookDto = bankBookDto.toBuilder()
-            .userId(bankBook.getUserId())
-            .amount(bankBook.getAmount())
-            .currency(bankBook.getCurrency())
-            .build();
-        bankBookMap.put(bankBook.getId(), bankBookDto);
-        return bankBookDto;
+        bankBookMap.put(bankBook.getId(), bankBook);
+        return bankBook;
     }
 
     @Override
