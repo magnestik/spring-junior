@@ -4,11 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.iteco.teachbase.springjunior.bankbook.model.BankBookDto;
-import ru.iteco.teachbase.springjunior.bankbook.model.exception.MissingRequiredVariableException;
 import ru.iteco.teachbase.springjunior.bankbook.service.BankBookService;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -17,15 +15,13 @@ public class BankBookController {
     private final BankBookService bankBookService;
 
     @GetMapping(value = {"/by-user-id/{userId}", "/by-user-id"})
-    public List<BankBookDto> findAllByUserId(@PathVariable Optional<Integer> userId) {
-        Integer id = getVariableOrElseThrow(userId, "userId");
-        return bankBookService.findAllByUserId(id);
+    public List<BankBookDto> findAllByUserId(@PathVariable Integer userId) {
+        return bankBookService.findAllByUserId(userId);
     }
 
     @GetMapping(value = {"/{bankBookId}", ""})
-    public BankBookDto findById(@PathVariable Optional<Integer> bankBookId) {
-        Integer id = getVariableOrElseThrow(bankBookId, "bankBookId");
-        return bankBookService.findById(id);
+    public BankBookDto findById(@PathVariable Integer bankBookId) {
+        return bankBookService.findById(bankBookId);
     }
 
     @PostMapping
@@ -53,10 +49,5 @@ public class BankBookController {
     @GetMapping("/all")
     public List<BankBookDto> getAll() {
         return bankBookService.getAll();
-    }
-
-    private <T> T getVariableOrElseThrow(Optional<T> variable, String name) {
-        String message = String.format("Не указан {%s} в запросе", name);
-        return variable.orElseThrow(() -> new MissingRequiredVariableException(message));
     }
 }
