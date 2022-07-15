@@ -1,6 +1,8 @@
 package ru.iteco.teachbase.springjunior.account.controller;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.iteco.teachbase.springjunior.account.model.UserDto;
@@ -24,7 +26,12 @@ public class UserRestController {
 
     @GetMapping("/{id}")
     public ResponseEntity<UserDto> getUserById(@PathVariable Integer id) {
-        return ResponseEntity.ok(userService.findById(id));
+        UserDto userDto = userService.findById(id);
+        ResponseCookie userId = ResponseCookie.from("userId", userDto.getId().toString()).maxAge(600).build();
+        return ResponseEntity
+            .status(HttpStatus.OK)
+            .header(HttpHeaders.SET_COOKIE, userId.toString())
+            .body(userDto);
     }
 
     @PostMapping()
