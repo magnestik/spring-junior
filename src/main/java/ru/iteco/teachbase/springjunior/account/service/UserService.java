@@ -1,6 +1,6 @@
 package ru.iteco.teachbase.springjunior.account.service;
 
-import ru.iteco.teachbase.springjunior.account.model.UserDto;
+import ru.iteco.teachbase.springjunior.account.model.dto.UserDto;
 
 import java.util.List;
 

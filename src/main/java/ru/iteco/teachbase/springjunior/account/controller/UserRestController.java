@@ -5,7 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.iteco.teachbase.springjunior.account.model.UserDto;
+import ru.iteco.teachbase.springjunior.account.model.dto.UserDto;
 import ru.iteco.teachbase.springjunior.account.service.UserService;
 
 import java.util.List;

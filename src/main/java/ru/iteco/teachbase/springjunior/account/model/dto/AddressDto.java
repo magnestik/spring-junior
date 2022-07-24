@@ -1,11 +1,12 @@
-package ru.iteco.teachbase.springjunior.account.model;
+package ru.iteco.teachbase.springjunior.account.model.dto;
 
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 @Data
-@AllArgsConstructor
+@Builder
 public class AddressDto {
+    private Integer id;
     private String country;
     private String city;
     private String street;

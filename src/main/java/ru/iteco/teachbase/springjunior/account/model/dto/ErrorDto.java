@@ -1,4 +1,4 @@
-package ru.iteco.teachbase.springjunior.account.model;
+package ru.iteco.teachbase.springjunior.account.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
