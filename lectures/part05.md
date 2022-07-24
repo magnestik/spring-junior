@@ -48,7 +48,7 @@ public List<BankBookDto> findAllByUserId(@CookieValue Integer userId, @RequestHe
 
 ## Spring Web. Validation
 Для проверка корректности данных в Spring Boot используется Bean Validation. Hibernate Validation считается эталонной 
-реализацией Bean Validation. Для проверки данных используются аннотации над поляи класса. Это декларативный подход, 
+реализацией Bean Validation. Для проверки данных используются аннотации над полями класса. Это декларативный подход, 
 который не загрязняет код.
 
 Подключение:
@@ -98,7 +98,7 @@ public @interface Annotation {
 
     Class<?>[] groups() default {}; //группа проверки
 
-    Class<? extends Payload>[] paylods() default {}; //полезная нагрузка
+    Class<? extends Payload>[] payload() default { }; //полезная нагрузка
 }
 ```
 * Реализовать класс валидатора, который имплементирует `ConstraintValidator<Annotation, FieldType>` и его метод `isValid()`.

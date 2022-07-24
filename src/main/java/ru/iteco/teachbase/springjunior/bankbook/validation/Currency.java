@@ -15,5 +15,5 @@ public @interface Currency {
 
     Class<?>[] groups() default {}; //группа проверки
 
-    Class<? extends Payload>[] paylods() default {}; //полезная нагрузка
+    Class<? extends Payload>[] payload() default { }; //полезная нагрузка
 }

@@ -4,10 +4,14 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.iteco.teachbase.springjunior.account.model.dto.UserDto;
 import ru.iteco.teachbase.springjunior.account.service.UserService;
+import ru.iteco.teachbase.springjunior.bankbook.validation.Created;
+import ru.iteco.teachbase.springjunior.bankbook.validation.Update;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -34,14 +38,16 @@ public class UserRestController {
             .body(userDto);
     }
 
+    @Validated(Created.class)
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
-    public UserDto createUser(@RequestBody UserDto userDto) {
+    public UserDto createUser(@Valid @RequestBody UserDto userDto) {
         return userService.create(userDto);
     }
 
+    @Validated(Update.class)
     @PutMapping()
-    public ResponseEntity<UserDto> updateUser(@RequestBody UserDto userDto) {
+    public ResponseEntity<UserDto> updateUser(@Valid @RequestBody UserDto userDto) {
         return ResponseEntity.status(HttpStatus.FOUND).body(userService.update(userDto));
     }
 

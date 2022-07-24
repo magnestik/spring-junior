@@ -1,14 +1,19 @@
 package ru.iteco.teachbase.springjunior.bankbook.validation;
 
+import ru.iteco.teachbase.springjunior.currency.CurrencyRepository;
+
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-import java.util.Set;
 
 public class CurrencyValidator implements ConstraintValidator<Currency, String> {
-    private static final Set<String> CURRENCY = Set.of("RUB", "EUR", "USD", "GBP");
+    private final CurrencyRepository currencyRepository;
+
+    public CurrencyValidator(CurrencyRepository currencyRepository) {
+        this.currencyRepository = currencyRepository;
+    }
 
     @Override
     public boolean isValid(String currency, ConstraintValidatorContext constraintValidatorContext) {
-        return CURRENCY.contains(currency);
+        return currencyRepository.existsByName(currency);
     }
 }
