@@ -2,8 +2,8 @@ package ru.iteco.teachbase.springjunior.account.model.dto;
 
 import lombok.Builder;
 import lombok.Data;
-import ru.iteco.teachbase.springjunior.bankbook.validation.Created;
-import ru.iteco.teachbase.springjunior.bankbook.validation.Update;
+import ru.iteco.teachbase.springjunior.validation.Created;
+import ru.iteco.teachbase.springjunior.validation.Update;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;

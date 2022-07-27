@@ -1,6 +1,7 @@
 package ru.iteco.teachbase.springjunior.bankbook.model;
 
 import lombok.*;
+import ru.iteco.teachbase.springjunior.currency.CurrencyEntity;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -13,7 +14,7 @@ import java.util.Objects;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "bank_book", schema = "ad", catalog = "account")
+@Table(name = "bank_book", schema = "bank", catalog = "account")
 public class BankBookEntity {
     @Id
     @Column(name = "id")
@@ -29,8 +30,9 @@ public class BankBookEntity {
     @Column(name = "amount", nullable = false)
     private BigDecimal amount;
 
-    @Column(name = "currency", nullable = false)
-    private String currency;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "currency", referencedColumnName = "id", nullable = false)
+    private CurrencyEntity currency;
 
     @Override
     public boolean equals(Object o) {

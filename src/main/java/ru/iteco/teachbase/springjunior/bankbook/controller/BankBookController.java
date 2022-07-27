@@ -7,8 +7,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.iteco.teachbase.springjunior.bankbook.model.BankBookDto;
 import ru.iteco.teachbase.springjunior.bankbook.service.BankBookService;
-import ru.iteco.teachbase.springjunior.bankbook.validation.Created;
-import ru.iteco.teachbase.springjunior.bankbook.validation.Update;
+import ru.iteco.teachbase.springjunior.validation.Created;
+import ru.iteco.teachbase.springjunior.validation.Update;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Min;

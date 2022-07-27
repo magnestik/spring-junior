@@ -8,8 +8,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.iteco.teachbase.springjunior.account.model.dto.UserDto;
 import ru.iteco.teachbase.springjunior.account.service.UserService;
-import ru.iteco.teachbase.springjunior.bankbook.validation.Created;
-import ru.iteco.teachbase.springjunior.bankbook.validation.Update;
+import ru.iteco.teachbase.springjunior.validation.Created;
+import ru.iteco.teachbase.springjunior.validation.Update;
 
 import javax.validation.Valid;
 import java.util.List;

@@ -1,4 +1,4 @@
-package ru.iteco.teachbase.springjunior.bankbook.validation;
+package ru.iteco.teachbase.springjunior.validation;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;

@@ -2,9 +2,9 @@ package ru.iteco.teachbase.springjunior.bankbook.model;
 
 import lombok.Builder;
 import lombok.Data;
-import ru.iteco.teachbase.springjunior.bankbook.validation.Created;
-import ru.iteco.teachbase.springjunior.bankbook.validation.Currency;
-import ru.iteco.teachbase.springjunior.bankbook.validation.Update;
+import ru.iteco.teachbase.springjunior.validation.Created;
+import ru.iteco.teachbase.springjunior.validation.Currency;
+import ru.iteco.teachbase.springjunior.validation.Update;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -20,10 +20,12 @@ public class BankBookDto {
     private Integer id;
     @NotNull
     private Integer userId;
-    @NotBlank
+    @NotBlank(message = "пустой!")
     private String number;
     @PositiveOrZero
+    @NotNull
     private BigDecimal amount;
     @Currency
+    @NotNull
     private String currency;
 }
