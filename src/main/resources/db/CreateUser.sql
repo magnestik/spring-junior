@@ -53,4 +53,4 @@ create table if not exists bank.bank_book
     primary key (id),
     foreign key (user_id) references ad.users (id),
     foreign key (currency) references dict.currency (id)
-)
+);

@@ -1,6 +1,7 @@
 package ru.iteco.teachbase.springjunior.bankbook.model;
 
 import lombok.*;
+import ru.iteco.teachbase.springjunior.account.model.entity.UserEntity;
 import ru.iteco.teachbase.springjunior.currency.CurrencyEntity;
 
 import javax.persistence.*;
@@ -33,6 +34,10 @@ public class BankBookEntity {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "currency", referencedColumnName = "id", nullable = false)
     private CurrencyEntity currency;
+
+    @ManyToOne()
+    @JoinColumn(name = "user_id", referencedColumnName = "id", insertable = false, updatable = false)
+    private UserEntity user;
 
     @Override
     public boolean equals(Object o) {

@@ -8,7 +8,7 @@ import java.util.Objects;
 
 @Getter
 @Setter
-@ToString
+@ToString(exclude = "user")
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -31,6 +31,10 @@ public class AddressEntity {
 
     @Column(name = "home")
     private String home;
+
+    @OneToOne(mappedBy = "address",
+            cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE, CascadeType.REMOVE})
+    private UserEntity user;
 
     @Override
     public boolean equals(Object o) {
