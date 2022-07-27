@@ -2,11 +2,14 @@ package ru.iteco.teachbase.springjunior.account.model.entity;
 
 import lombok.*;
 import org.hibernate.Hibernate;
+import ru.iteco.teachbase.springjunior.account.model.GroupEntity;
 import ru.iteco.teachbase.springjunior.bankbook.model.BankBookEntity;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -27,12 +30,19 @@ public class UserEntity {
     @Column(name = "email")
     private String email;
 
+    @ToString.Exclude
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "address", referencedColumnName = "id")
     private AddressEntity address;
 
     @OneToMany(mappedBy = "user")
     private List<BankBookEntity> bankBooks;
+
+    @ManyToMany
+    @JoinTable(name = "users_groups", schema = "ad",
+        joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+        inverseJoinColumns = @JoinColumn(name = "group_id", referencedColumnName = "id"))
+    private Set<GroupEntity> groups = new HashSet<>();
 
     @Override
     public boolean equals(Object o) {
@@ -45,15 +55,5 @@ public class UserEntity {
     @Override
     public int hashCode() {
         return getClass().hashCode();
-    }
-
-    @Override
-    public String toString() {
-        return "UserEntity{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-//                ", address=" + address +
-                '}';
     }
 }

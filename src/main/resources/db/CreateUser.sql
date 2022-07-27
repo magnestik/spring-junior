@@ -54,3 +54,21 @@ create table if not exists bank.bank_book
     foreign key (user_id) references ad.users (id),
     foreign key (currency) references dict.currency (id)
 );
+
+create sequence if not exists ad.group_id_seq;
+
+create table if not exists ad.group
+(
+    id   integer unique not null default nextval('ad.group_id_seq'),
+    name varchar        not null,
+    primary key (id)
+);
+
+create table if not exists ad.users_groups
+(
+    user_id  integer not null,
+    group_id integer not null,
+    primary key (user_id, group_id),
+    foreign key (user_id) references ad.users (id),
+    foreign key (group_id) references ad.group (id)
+);
