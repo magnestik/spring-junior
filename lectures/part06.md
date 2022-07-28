@@ -1,17 +1,17 @@
 # Spring Data. JPA. Hibernate. Доступ к данным (БД)
 До этого для хранения данных использовалась Map, хранение в оперативной памяти, этот способ не подходит при хранении 
-больших информаций. Для это используется базы данных. В Spring Boot для этого есть spring-boot-starter-data-jpa.
+больших информаций. Для это используется базы данных. В Spring Boot для этого есть `spring-boot-starter-data-jpa`.
 
 Для подключения базы данных в Spring Boot приложении необходимо:
-* Добавить зависимость spring-boot-starter-data-jpa
+* Добавить зависимость `spring-boot-starter-data-jpa`
 * Добавить JDBC драйвер для базы данных
 * В application.properties указать url, user, password
 
 ## Spring Boot. JPA
-JPA (Java Persistence API) - стандартная спецификация, описывающая систему для управления сохранением Java объектов 
+**JPA (Java Persistence API)** - стандартная спецификация, описывающая систему для управления сохранением Java объектов 
 в таблицы базы данных.
 
-Hibernate - самая популярная реализация спецификации JPA. Таким образом JPA описывает правила, а Hibernate реализует их.
+**Hibernate** - самая популярная реализация спецификации JPA. Таким образом JPA описывает правила, а Hibernate реализует их.
 
 ### Spring Boot. Подключение к БД
 
@@ -225,10 +225,31 @@ JoinTable - вспомогательная таблица для связи Many
 
 Каждый ChangeSet имеет составной идентификатор id, author и filename, который должен быть уникальным.
 
+### Liquibase. Блокировка
+
 При первом запуске Liquibase создает 2 технические таблицы:
-* databasechangelog - содержит список изменений схемы БД. Туда записываются уже выполненные ChangeSet.
-* databasechengelock - используется для блокировки на время работы, чтобы гарантировать одновременную работу только 
+* **databasechangelog** - содержит список изменений схемы БД. Туда записываются уже выполненные ChangeSet.
+* **databasechengelock** - используется для блокировки на время работы, чтобы гарантировать одновременную работу только 
 1 экземпляра Liquibase.
+
+После выполнения changeSet в таблицу _databasechangelog_ со всем прочим записываются MD5 хэш changeSet. Хэш высчитывается 
+на основе нормализованного содержимого XML. При следующем запуске Liquibase будет сверять вновь рассчитанные хэш суммы 
+со значениями в его таблице. Если вы изменили уже выполненные changeSet, то хэш сумма будет отличаться, и приложение 
+упадет с ошибкой при старте.
+
+**После выполнения changeSet нельзя просто изменить!** В этом случае есть 3 пути:
+* Создать новый _changeSet_ с изменениями **[Рекомендуемый]**
+* Выполнить откат средствами Liquibase
+* Удалить запись о выполнении _changeSet_ из _databasechangelog_. **Не рекомендуется**, если changeSet уже выполнен на 
+каком-то контуре. Этот вариант удобен при локальной разработке.
+
+Если несколько экземпляров Liquibase будут выполняться одновременно с одной и той же БД, вы получите конфликты. 
+Это может произойти, если несколько разработчиков используют один и тот же экземпляр БД или в кластере несколько 
+серверов, которые автоматически запускают Liquibase при запуске.
+
+Для защиты от таких ситуаций Liquibase создает таблицу **databasechengelock**, в которой есть _boolean_ поле _locked_. 
+При запуске Liquibase проверяет его состояние, и если оно _true_, то ожидает смены на _false_.
+
 
 ### Liquibase. Настройка в Spring Boot
 Чтобы добавить поддержку Liquibase, нужно указать следующую зависимость в maven:
@@ -239,9 +260,37 @@ JoinTable - вспомогательная таблица для связи Many
 </dependency>
 ```
 
-Создаем файл `resouces/db/changelog/db.changelog-master.xml`. И изменяем путь в application.yml:
+Создаем файл `resouces/db/changelog/db.changelog-master.xml`. И изменяем путь в _application.yml_:
 ```yaml
 spring:
   liquibase:
     change-log: classpath*:db/changelog/db.changelog-master.xml
+```
+
+Содержимое _db.changelog-master.xml_:
+```xml
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <includeAll path="db/changelog/init"/>
+    
+    <include file="db/changelog/v1/changeset-v1.0.xml"/>
+    
+    <!-- Пример создания таблицы -->
+    <changeSet id="create-ad-address-table" author="iteco">
+        <createTable tableName="address" schemaName="ad">
+            <column name="id" type="serial">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="country" type="varchar"/>
+            <column name="city" type="varchar"/>
+            <column name="street" type="varchar"/>
+            <column name="home" type="varchar"/>
+        </createTable>
+    </changeSet>
+    
+</databaseChangeLog>
 ```
