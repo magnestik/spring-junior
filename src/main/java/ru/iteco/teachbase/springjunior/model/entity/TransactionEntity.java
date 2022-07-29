@@ -25,7 +25,7 @@ public class TransactionEntity {
 
     @ManyToOne
     @JoinColumn(name = "target_bank_book_id", referencedColumnName = "id")
-    private BankBookEntity targerBankBook;
+    private BankBookEntity targetBankBook;
 
     @Column(name = "amount")
     private BigDecimal amount;
