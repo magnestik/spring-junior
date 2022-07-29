@@ -5,12 +5,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
-import ru.iteco.teachbase.springjunior.account.model.GroupEntity;
-import ru.iteco.teachbase.springjunior.account.model.dto.AddressDto;
-import ru.iteco.teachbase.springjunior.account.model.entity.UserEntity;
-import ru.iteco.teachbase.springjunior.account.repository.GroupEntityRepository;
-import ru.iteco.teachbase.springjunior.account.repository.UserRepository;
-import ru.iteco.teachbase.springjunior.account.service.AddressService;
+import ru.iteco.teachbase.springjunior.model.entity.GroupEntity;
+import ru.iteco.teachbase.springjunior.model.dto.AddressDto;
+import ru.iteco.teachbase.springjunior.model.entity.UserEntity;
+import ru.iteco.teachbase.springjunior.repository.GroupEntityRepository;
+import ru.iteco.teachbase.springjunior.repository.UserRepository;
+import ru.iteco.teachbase.springjunior.service.AddressService;
 
 @Slf4j
 @SpringBootTest

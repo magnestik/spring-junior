@@ -1,0 +1,50 @@
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="create-status-table" author="iteco">
+        <createTable tableName="status" schemaName="bank">
+            <column name="id" type="serial">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="iteco" id="create-transaction-table">
+        <createTable tableName="transaction" schemaName="bank">
+            <column name="id" type="serial">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="source_bank_book_id" type="integer">
+                <constraints foreignKeyName="transaction_source_bankbook_id_fk" references="bank.bank_book(id)"/>
+            </column>
+            <column name="target_bank_book_id" type="integer">
+                <constraints foreignKeyName="transaction_target_bankbook_id_fk" references="bank.bank_book(id)"/>
+            </column>
+            <column name="amount" type="decimal"/>
+            <column name="initiation_date" type="datetime"/>
+            <column name="completion_date" type="datetime"/>
+            <column name="status_id" type="integer">
+                <constraints foreignKeyName="transaction_status_fk" references="bank.status(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="insert-into-status" author="iteco">
+        <insert tableName="status" schemaName="bank">
+            <column name="name">processing</column>
+        </insert>
+        <insert tableName="status" schemaName="bank">
+            <column name="name">successful</column>
+        </insert>
+        <insert tableName="status" schemaName="bank">
+            <column name="name">declined</column>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

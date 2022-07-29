@@ -1,6 +1,6 @@
 package ru.iteco.teachbase.springjunior.validation;
 
-import ru.iteco.teachbase.springjunior.currency.CurrencyRepository;
+import ru.iteco.teachbase.springjunior.repository.CurrencyRepository;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
