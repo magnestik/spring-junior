@@ -1,10 +1,11 @@
-package ru.iteco.teachbase.springjunior.controller;
+package ru.iteco.teachbase.springjunior.controller.handler;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MissingPathVariableException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import ru.iteco.teachbase.springjunior.controller.BankBookController;
 import ru.iteco.teachbase.springjunior.model.dto.ErrorDto;
 import ru.iteco.teachbase.springjunior.model.exception.BankBookByUserExistException;
 import ru.iteco.teachbase.springjunior.model.exception.BankBookChangeNumberException;

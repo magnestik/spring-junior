@@ -1,9 +1,10 @@
-package ru.iteco.teachbase.springjunior.controller;
+package ru.iteco.teachbase.springjunior.controller.handler;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import ru.iteco.teachbase.springjunior.controller.UserRestController;
 import ru.iteco.teachbase.springjunior.model.dto.UserErrorDto;
 import ru.iteco.teachbase.springjunior.model.exception.UserNotFoundException;
 

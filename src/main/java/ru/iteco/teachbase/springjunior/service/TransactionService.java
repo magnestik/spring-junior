@@ -53,16 +53,16 @@ public class TransactionService {
                     bankBookRepository.findAllByUserId(transaction.getSourceBankBookUserId()).stream()
                             .filter(bankBook ->
                                     transaction.getCurrency().equals(bankBook.getCurrency().getName())
-                                            && transaction.getAmount().compareTo(bankBook.getAmount())>=0)
+                                            && transaction.getAmount().compareTo(bankBook.getAmount()) >= 0)
                             .findFirst()
-                            .orElseThrow(() -> new BankBookNotFoundException("У пользователя недостаточно средств на счетах"));
+                            .orElseThrow(() -> new BankBookNotFoundException("Не найден подходящий счёт-источник"));
         }
         UserEntity user = userRepository.findById(transaction.getTargetBankBookUserId())
                 .orElseThrow(() -> new UserNotFoundException("Пользователь не найден!"));
         BankBookEntity targetBankBook = user.getBankBooks().stream()
                 .filter(bankBookEntity -> bankBookEntity.getCurrency().equals(sourceBankBook.getCurrency()))
                 .findFirst()
-                .orElseThrow(() -> new TransactionException("У пользователя {} отсутствует счёт с валютой счёта-источника"));
+                .orElseThrow(() -> new TransactionException("У пользователя-получателя отсутствует счёт с валютой счёта-источника"));
 
         transactionBetweenBankBooks(transaction.getAmount(), sourceBankBook, targetBankBook);
     }

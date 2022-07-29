@@ -1,4 +1,4 @@
-package ru.iteco.teachbase.springjunior.controller;
+package ru.iteco.teachbase.springjunior.controller.handler;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
