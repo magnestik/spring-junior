@@ -38,7 +38,7 @@ public class TransactionService {
         BankBookEntity bankBookSource = bankBookRepository.findById(sourceBankBookId)
                 .orElseThrow(() -> new BankBookNotFoundException("Счёт-источник не найден!"));
         BankBookEntity bankBookTarget = bankBookRepository.findById(targetBankBookId)
-                .orElseThrow(() -> new BankBookNotFoundException("Счёт-источник не найден!"));
+                .orElseThrow(() -> new BankBookNotFoundException("Счёт-получатель не найден!"));
 
         transactionBetweenBankBooks(amount, bankBookSource, bankBookTarget);
     }
@@ -75,7 +75,6 @@ public class TransactionService {
                 .initiationDate(LocalDateTime.now())
                 .status(statusRepository.findByName(StatusEntity.Status.processing.name()))
                 .build();
-        transactionEntity = transactionRepository.save(transactionEntity);
 
         try {
             if (!sourceBankBook.getCurrency().equals(targetBankBook.getCurrency())) {
@@ -91,11 +90,10 @@ public class TransactionService {
 
             transactionEntity.setCompletionDate(LocalDateTime.now());
             transactionEntity.setStatus(statusRepository.findByName(StatusEntity.Status.successful.name()));
-            transactionRepository.save(transactionEntity);
         } catch (Exception e) {
             transactionEntity.setCompletionDate(LocalDateTime.now());
             transactionEntity.setStatus(statusRepository.findByName(StatusEntity.Status.declined.name()));
-            transactionRepository.save(transactionEntity);
         }
+        transactionRepository.save(transactionEntity);
     }
 }

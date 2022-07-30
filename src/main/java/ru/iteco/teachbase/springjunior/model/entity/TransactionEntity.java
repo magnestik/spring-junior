@@ -20,23 +20,23 @@ public class TransactionEntity {
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "source_bank_book_id", referencedColumnName = "id")
+    @JoinColumn(name = "source_bank_book_id", nullable = false)
     private BankBookEntity sourceBankBook;
 
     @ManyToOne
-    @JoinColumn(name = "target_bank_book_id", referencedColumnName = "id")
+    @JoinColumn(name = "target_bank_book_id", nullable = false)
     private BankBookEntity targetBankBook;
 
-    @Column(name = "amount")
+    @Column(name = "amount", nullable = false)
     private BigDecimal amount;
 
-    @Column(name = "initiation_date")
+    @Column(name = "initiation_date", nullable = false)
     private LocalDateTime initiationDate;
 
     @Column(name = "completion_date")
     private LocalDateTime completionDate;
 
     @ManyToOne
-    @JoinColumn(name = "status_id", referencedColumnName = "id")
+    @JoinColumn(name = "status_id", nullable = false)
     private StatusEntity status;
 }
