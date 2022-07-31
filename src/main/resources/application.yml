@@ -9,3 +9,13 @@ spring:
     show-sql: true
   liquibase:
     change-log: classpath:db/changelog/db.changelog-master.xml
+logging:
+  level:
+    org.springframework: error
+    org.springframework.boot: info
+    io.app: trace
+  file:
+    path: log
+  pattern:
+    file: '%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{52} - %msg%n'
+    console: '%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{52} - %msg%n'

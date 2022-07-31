@@ -1,6 +1,7 @@
 package ru.iteco.teachbase.springjunior.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.iteco.teachbase.springjunior.model.dto.TransactionDto;
 import ru.iteco.teachbase.springjunior.model.entity.BankBookEntity;
 import ru.iteco.teachbase.springjunior.model.entity.StatusEntity;
@@ -9,6 +10,7 @@ import ru.iteco.teachbase.springjunior.model.entity.UserEntity;
 import ru.iteco.teachbase.springjunior.model.exception.BankBookNotFoundException;
 import ru.iteco.teachbase.springjunior.model.exception.TransactionException;
 import ru.iteco.teachbase.springjunior.model.exception.UserNotFoundException;
+import ru.iteco.teachbase.springjunior.repository.BankBookRepository;
 import ru.iteco.teachbase.springjunior.repository.StatusRepository;
 import ru.iteco.teachbase.springjunior.repository.TransactionRepository;
 import ru.iteco.teachbase.springjunior.repository.UserRepository;
@@ -18,6 +20,7 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 
 @Service
+@Transactional
 public class TransactionService {
     private final BankBookRepository bankBookRepository;
     private final TransactionRepository transactionRepository;
@@ -35,9 +38,9 @@ public class TransactionService {
     }
 
     public void transactionBetweenBankBooks(BigDecimal amount, Integer sourceBankBookId, Integer targetBankBookId) {
-        BankBookEntity bankBookSource = bankBookRepository.findById(sourceBankBookId)
+        BankBookEntity bankBookSource = bankBookRepository.lockById(sourceBankBookId)
                 .orElseThrow(() -> new BankBookNotFoundException("Счёт-источник не найден!"));
-        BankBookEntity bankBookTarget = bankBookRepository.findById(targetBankBookId)
+        BankBookEntity bankBookTarget = bankBookRepository.lockById(targetBankBookId)
                 .orElseThrow(() -> new BankBookNotFoundException("Счёт-получатель не найден!"));
 
         transactionBetweenBankBooks(amount, bankBookSource, bankBookTarget);
@@ -46,7 +49,7 @@ public class TransactionService {
     public void transactionOtherUser(TransactionDto transaction) {
         BankBookEntity sourceBankBook;
         if (transaction.getSourceBankBookId() != null) {
-            sourceBankBook = bankBookRepository.findById(transaction.getSourceBankBookId())
+            sourceBankBook = bankBookRepository.lockById(transaction.getSourceBankBookId())
                     .orElseThrow(() -> new BankBookNotFoundException("Счёт-источник не найден!"));
         } else {
             sourceBankBook =

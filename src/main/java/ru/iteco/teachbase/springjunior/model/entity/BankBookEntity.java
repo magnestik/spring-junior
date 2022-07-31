@@ -6,13 +6,13 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Objects;
 
+@Entity
 @Getter
 @Setter
-@ToString
 @Builder
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
 @Table(name = "bank_book", schema = "bank", catalog = "account")
 public class BankBookEntity {
     @Id

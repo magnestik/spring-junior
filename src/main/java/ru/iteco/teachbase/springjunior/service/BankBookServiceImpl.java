@@ -7,6 +7,7 @@ import ru.iteco.teachbase.springjunior.model.exception.BankBookByUserExistExcept
 import ru.iteco.teachbase.springjunior.model.exception.BankBookChangeNumberException;
 import ru.iteco.teachbase.springjunior.model.exception.BankBookNotFoundException;
 import ru.iteco.teachbase.springjunior.model.entity.CurrencyEntity;
+import ru.iteco.teachbase.springjunior.repository.BankBookRepository;
 import ru.iteco.teachbase.springjunior.repository.CurrencyRepository;
 
 import java.util.List;
