@@ -1,0 +1,9 @@
+{
+  "properties": [
+    {
+      "name": "apps.base-url.currency",
+      "type": "java.lang.String",
+      "description": "Description for apps.base-url.currency."
+    }
+  ]
+}

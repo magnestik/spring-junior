@@ -1,0 +1,8 @@
+server:
+  port: 8090
+
+currency:
+  token: 2qBJkeJDE0X3Trdi9y3tuduuKnKblmOT
+  fixer-api-url:
+    convert: https://api.apilayer.com/fixer/convert?to={to}&from={from}&amount={amount}
+    latest: https://api.apilayer.com/fixer/latest

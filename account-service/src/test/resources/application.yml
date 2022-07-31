@@ -5,3 +5,9 @@ spring:
     password: account
   jpa:
     show-sql: true
+  liquibase:
+    enabled: false
+
+apps:
+  base-url:
+    currency: http://localhost:8090/currency

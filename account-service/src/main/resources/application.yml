@@ -19,3 +19,7 @@ logging:
   pattern:
     file: '%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{52} - %msg%n'
     console: '%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{52} - %msg%n'
+
+apps:
+  base-url:
+    currency: http://localhost:8090/currency
