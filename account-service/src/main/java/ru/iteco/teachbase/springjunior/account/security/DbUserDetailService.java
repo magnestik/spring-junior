@@ -10,6 +10,7 @@ import ru.iteco.teachbase.springjunior.account.model.entity.UserAuthEntity;
 import ru.iteco.teachbase.springjunior.account.repository.UserAuthRepository;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class DbUserDetailService implements UserDetailsService {
@@ -24,8 +25,10 @@ public class DbUserDetailService implements UserDetailsService {
         UserAuthEntity userAuthEntity = userAuthRepository.findByUsername(username)
             .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
-        return new User(userAuthEntity.getUsername(),
-            userAuthEntity.getPassword(),
-            List.of(new SimpleGrantedAuthority("user")));
+        List<SimpleGrantedAuthority> authorities = userAuthEntity.getRoles().stream()
+            .map(roleEntity -> new SimpleGrantedAuthority(roleEntity.getName()))
+            .collect(Collectors.toList());
+
+        return new User(userAuthEntity.getUsername(), userAuthEntity.getPassword(), authorities);
     }
 }

@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.Objects;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -23,6 +24,12 @@ public class UserAuthEntity {
 
     @Column(name = "password", nullable = false)
     private String password;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_auth_roles", schema = "ad",
+        joinColumns = @JoinColumn(name = "user_auth_id", referencedColumnName = "id"),
+        inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+    private Set<RoleEntity> roles;
 
     @Override
     public boolean equals(Object o) {

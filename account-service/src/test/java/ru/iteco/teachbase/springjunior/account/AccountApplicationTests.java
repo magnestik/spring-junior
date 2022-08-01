@@ -5,6 +5,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import ru.iteco.teachbase.springjunior.account.model.dto.AddressDto;
 import ru.iteco.teachbase.springjunior.account.model.dto.ConvertResult;
@@ -34,6 +35,8 @@ class AccountApplicationTests {
     private BankBookRepository bankBookRepository;
     @Autowired
     private CurrencyServiceApi currencyServiceApi;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Test
     void contextLoads() {
@@ -97,6 +100,11 @@ class AccountApplicationTests {
         ConvertResult allExchangeApi = currencyServiceApi.convert(converterRequest);
         log.info("RESULT: {}", allExchangeApi);
         Assertions.assertThat(allExchangeApi).isNotNull().hasNoNullFieldsOrProperties();
+    }
+
+    @Test
+    void generatePassword() {
+        log.info("PASS: {}", passwordEncoder.encode("iteco"));
     }
 }
 

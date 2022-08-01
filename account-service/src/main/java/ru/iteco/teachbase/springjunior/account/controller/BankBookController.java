@@ -11,7 +11,6 @@ import ru.iteco.teachbase.springjunior.account.validation.Created;
 import ru.iteco.teachbase.springjunior.account.validation.Update;
 
 import javax.validation.Valid;
-import javax.validation.constraints.Min;
 import java.util.List;
 import java.util.Map;
 
@@ -30,7 +29,7 @@ public class BankBookController {
     }
 
     @GetMapping(value = {"/{bankBookId}", ""})
-    public BankBookDto findById(@Min(2) @PathVariable Integer bankBookId) {
+    public BankBookDto findById(@PathVariable Integer bankBookId) {
         return bankBookService.findById(bankBookId);
     }
 
