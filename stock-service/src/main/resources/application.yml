@@ -1,0 +1,7 @@
+server:
+  port: 8070
+
+stock:
+  token: ZZs434387wMHPVA5z3UxhSDMqy9fuuCsTxS438lt
+  url:
+    stock: https://api.stockdata.org/v1

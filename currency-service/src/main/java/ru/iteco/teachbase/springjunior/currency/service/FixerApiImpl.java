@@ -25,7 +25,7 @@ public class FixerApiImpl implements FixerApi {
     @Override
     public ConvertResult convert(ConverterRequest request) {
         RequestEntity<Void> requestEntity = RequestEntity
-            .get(convertUrl,request.getTo(), request.getFrom(), request.getAmount())
+            .get(convertUrl, request.getTo(), request.getFrom(), request.getAmount())
             .header("apikey", token)
             .build();
         ResponseEntity<ConvertResult> responseEntity = restTemplateExchange.exchange(requestEntity, ConvertResult.class);
