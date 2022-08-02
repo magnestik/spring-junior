@@ -64,6 +64,28 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 }
 ```
 
+В новой версии Spring Boot ~~WebSecurityConfigurerAdapter~~ объявлен **deprecated**. Для конфигурирования нужно объявить бины:
+```java
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig {
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
+        return httpSecurity.build();
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+        return authenticationConfiguration.getAuthenticationManager();
+    }
+}
+```
+
 ## Spring Security. JWT
 **JSON Web Token (JWT)** - это открытый стандарт (RFC 7519) для создания токенов доступа, основанный на формате JSON.
 

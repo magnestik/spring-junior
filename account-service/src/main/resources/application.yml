@@ -23,7 +23,7 @@ logging:
 security:
   jwt:
     expiration: 600
-    secret: c2VjcmV0
+    secret: Vm10YWIyTXhXa2RqUm1oVlltMTRhRll3V2t0VVZtUnpZVWhLVVZWVU1Eaz0=
 
 apps:
   base-url:

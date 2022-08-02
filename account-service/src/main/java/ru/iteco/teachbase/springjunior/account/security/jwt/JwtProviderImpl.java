@@ -1,9 +1,6 @@
 package ru.iteco.teachbase.springjunior.account.security.jwt;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jws;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
@@ -28,9 +25,9 @@ public class JwtProviderImpl implements JwtProvider {
         Key key =  Keys.hmacShaKeyFor(Decoders.BASE64.decode(secret));
 
         return Jwts.builder()
-            .claim("userId", null)
+            .claim(Claims.SUBJECT, username)
             .setExpiration(expirationDate)
-            .signWith(key, SignatureAlgorithm.ES256)
+            .signWith(key, SignatureAlgorithm.HS256)
             .compact();
     }
 
@@ -40,16 +37,19 @@ public class JwtProviderImpl implements JwtProvider {
             Jws<Claims> claimsJws = Jwts.parserBuilder()
                 .setSigningKey(Keys.hmacShaKeyFor(Decoders.BASE64.decode(secret)))
                 .build().parseClaimsJws(token);
-            return true;
+            return claimsJws != null;
         } catch (Exception e) {
-            log.error("Invalid JWT {}", token, e);
+            log.error("Invalid JWT", e);
+            return false;
         }
-        return false;
     }
 
     @Override
     public String getUsernameFromToken(String token) {
-        Jws<Claims> claimsJws = Jwts.parserBuilder().setSigningKey(Keys.hmacShaKeyFor(Decoders.BASE64.decode(secret))).build().parseClaimsJws(token);
+        Jws<Claims> claimsJws = Jwts.parserBuilder()
+            .setSigningKey(Keys.hmacShaKeyFor(Decoders.BASE64.decode(secret)))
+            .build()
+            .parseClaimsJws(token);
         return claimsJws.getBody().getSubject();
     }
 }
