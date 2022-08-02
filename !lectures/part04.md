@@ -46,10 +46,10 @@ TransactionManager (менеджер, который отвечает за тр�
 ## Spring Boot. Servlet
 
 Сервлет - обработчик запросов на сервер
-+ **spring-boot-sterter-tomcat** - дефолтный
-+ **spring-boot-sterter-jetty** - альтернатива Tomcat
-+ **spring-boot-sterter-undertow** - альтернатива Tomcat
-+ **spring-boot-sterter-reactor-netty** - для использования Reactor Netty в качестве встроенного reactive HTTP сервера
++ **spring-boot-starter-tomcat** - дефолтный
++ **spring-boot-starter-jetty** - альтернатива Tomcat
++ **spring-boot-starter-undertow** - альтернатива Tomcat
++ **spring-boot-starter-reactor-netty** - для использования Reactor Netty в качестве встроенного reactive HTTP сервера
 
 Изменить дефолтный сервер:
 ```xml
