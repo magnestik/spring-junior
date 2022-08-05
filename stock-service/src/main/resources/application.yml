@@ -5,3 +5,16 @@ stock:
   token: ZZs434387wMHPVA5z3UxhSDMqy9fuuCsTxS438lt
   url:
     stock: https://api.stockdata.org/v1
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/account
+    username: account
+    password: account
+  jpa:
+    show-sql: true
+
+security:
+  jwt:
+    expiration: 600
+    secret: Vm10YWIyTXhXa2RqUm1oVlltMTRhRll3V2t0VVZtUnpZVWhLVVZWVU1Eaz0=
