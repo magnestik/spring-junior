@@ -1,0 +1,18 @@
+server:
+  port: 8888
+
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          auth0:
+            client-id: jhYUBYYBIJKINBYyguygd787asdbbjk
+            client-secret: jkdsfkj98*(ihjfkkII(UHdnbkklcjhvsd8ufh99o43nnklH*(Y`kijkfoijm
+            scope:
+              - openid
+              - profile
+              - email
+        provider:
+          auth0:
+            issuer-uri: https://dev-dnqy-t57.eu.auth0.com/
