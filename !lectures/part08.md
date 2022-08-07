@@ -86,6 +86,8 @@ public class SecurityConfig {
 }
 ```
 
+Также можно на методы вешать аннотацию `@PreAuthorize("hasAnyAuthority(role1, role2)")`.
+
 ## Spring Security. JWT
 **JSON Web Token (JWT)** - это открытый стандарт (RFC 7519) для создания токенов доступа, основанный на формате JSON.
 
