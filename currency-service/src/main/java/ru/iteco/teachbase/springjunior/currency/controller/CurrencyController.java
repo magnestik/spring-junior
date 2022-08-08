@@ -7,6 +7,8 @@ import ru.iteco.teachbase.springjunior.currency.model.ConverterRequest;
 import ru.iteco.teachbase.springjunior.currency.model.LatestResult;
 import ru.iteco.teachbase.springjunior.currency.service.FixerApi;
 
+import java.util.Map;
+
 @Slf4j
 @RestController
 @RequestMapping("/currency")
@@ -24,8 +26,8 @@ public class CurrencyController {
     }
 
     @GetMapping("/latest")
-    public LatestResult latestByRub(@RequestHeader("trace-id") String traceId) {
-        log.info("Request with trace-id: {}", traceId);
+    public LatestResult latestByRub(@RequestHeader Map<String, String> headers) {
+        log.info("Request with trace-id: {}", headers);
         return fixerApi.latestByRub();
     }
 }

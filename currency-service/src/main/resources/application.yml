@@ -1,8 +1,18 @@
 server:
   port: 8090
 
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://dev-dnqy-t57.eu.auth0.com/
+
 currency:
   token: 2qBJkeJDE0X3Trdi9y3tuduuKnKblmOT
   fixer-api-url:
     convert: https://api.apilayer.com/fixer/convert?to={to}&from={from}&amount={amount}
     latest: https://api.apilayer.com/fixer/latest
+
+auth:
+  audience: currency-service
