@@ -19,7 +19,10 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-            .authorizeRequests().anyRequest().authenticated()
+            .authorizeRequests()
+            .antMatchers("/convert").hasAuthority("SCOPE_pro")
+            .antMatchers("/latest").hasAnyAuthority("SCOPE_base", "SCOPE_pro")
+            .anyRequest().authenticated()
             .and().oauth2ResourceServer().jwt();
         return http.build();
     }

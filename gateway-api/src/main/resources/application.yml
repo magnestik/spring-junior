@@ -1,6 +1,14 @@
 server:
   port: 8888
 
+service:
+  currency:
+    uri: http://localhost:8090
+    path:
+      all-exchange: /latest
+      convert: /convert
+    audience: currency-service
+
 spring:
   security:
     oauth2:

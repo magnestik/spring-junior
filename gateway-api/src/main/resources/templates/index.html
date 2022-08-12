@@ -11,5 +11,13 @@
     <p th:text="${profile.get('email')}"/>
     <a th:href="@{/logout}">Log out</a>
 </div>
+
+<div sec:authorize="isAuthenticated()">
+    <a th:href="@{/all-exchange}">All Exchange</a>
+</div>
+
+<div sec:authorize="isAuthenticated()">
+    <a th:href="@{/convert}">Convert</a>
+</div>
 </body>
 </html>

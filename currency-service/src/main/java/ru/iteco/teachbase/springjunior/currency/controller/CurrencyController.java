@@ -20,14 +20,15 @@ public class CurrencyController {
     }
 
     @PostMapping("/convert")
-    public ConvertResult convertAmount(@RequestHeader("trace-id") String traceId, @RequestBody ConverterRequest converterRequest) {
-        log.info("Request with trace-id: {}", traceId);
+    public ConvertResult convertAmount(@RequestHeader Map<String, String> headers,
+                                       @RequestBody ConverterRequest converterRequest) {
+        log.info("Request with headers: {}", headers);
         return fixerApi.convert(converterRequest);
     }
 
     @GetMapping("/latest")
     public LatestResult latestByRub(@RequestHeader Map<String, String> headers) {
-        log.info("Request with trace-id: {}", headers);
+        log.info("Request with headers: {}", headers);
         return fixerApi.latestByRub();
     }
 }
