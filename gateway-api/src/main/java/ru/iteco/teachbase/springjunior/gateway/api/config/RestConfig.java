@@ -1,4 +1,4 @@
-package ru.iteco.teachbase.springjunior.gateway.api;
+package ru.iteco.teachbase.springjunior.gateway.api.config;
 
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;

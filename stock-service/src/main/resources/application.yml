@@ -13,8 +13,16 @@ spring:
     password: account
   jpa:
     show-sql: true
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://dev-dnqy-t57.eu.auth0.com/
 
 security:
   jwt:
     expiration: 600
     secret: Vm10YWIyTXhXa2RqUm1oVlltMTRhRll3V2t0VVZtUnpZVWhLVVZWVU1Eaz0=
+
+auth:
+  audience: stock-service

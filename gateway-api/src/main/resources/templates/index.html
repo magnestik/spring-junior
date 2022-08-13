@@ -19,5 +19,13 @@
 <div sec:authorize="isAuthenticated()">
     <a th:href="@{/convert}">Convert</a>
 </div>
+
+<div sec:authorize="isAuthenticated()">
+    <a th:href="@{/getQuoteByTickers}">Quote By Tickers</a>
+</div>
+
+<div sec:authorize="isAuthenticated()">
+    <a th:href="@{/getEndOfDayMultiple}">End Of Day Multiple</a>
+</div>
 </body>
 </html>

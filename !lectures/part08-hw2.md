@@ -1,0 +1,1 @@
+Добавить oauth2 авторизацию и интеграцию между gateway и stock-service.

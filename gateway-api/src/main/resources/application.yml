@@ -8,6 +8,12 @@ service:
       all-exchange: /latest
       convert: /convert
     audience: currency-service
+  stock:
+    uri: http://localhost:8070/stock
+    path:
+      quoteByTickers: getQuoteByTickers
+      endOfDayMultiple: getEndOfDayMultiple
+    audience: stock-service
 
 spring:
   security:

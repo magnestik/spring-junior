@@ -1,4 +1,4 @@
-package ru.iteco.teachbase.springjunior.gateway.api;
+package ru.iteco.teachbase.springjunior.gateway.api.model;
 
 import lombok.Builder;
 import lombok.Data;

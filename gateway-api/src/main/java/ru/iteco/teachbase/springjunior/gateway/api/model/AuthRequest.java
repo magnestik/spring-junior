@@ -1,4 +1,4 @@
-package ru.iteco.teachbase.springjunior.gateway.api;
+package ru.iteco.teachbase.springjunior.gateway.api.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;

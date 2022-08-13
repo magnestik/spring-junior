@@ -1,6 +1,5 @@
 package ru.iteco.teachbase.springjunior.stock.controller;
 
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,13 +20,11 @@ public class StockController {
         this.stockService = stockService;
     }
 
-    @PreAuthorize("hasAnyAuthority(base, pro)")
     @PostMapping("/getQuoteByTickers")
     public QuoteResult getQuoteByTickers(@RequestBody List<String> tickers) {
         return stockService.getQuoteByTickers(tickers);
     }
 
-    @PreAuthorize("hasAuthority(pro)")
     @PostMapping("/getEndOfDayMultiple")
     public EodMultipleResult getEndOfDayMultiple(@RequestBody EodMultipleRequest eodMultipleRequest) {
         return stockService.getEndOfDayMultiple(eodMultipleRequest);

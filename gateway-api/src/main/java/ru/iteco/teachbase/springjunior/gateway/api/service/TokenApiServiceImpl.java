@@ -1,8 +1,10 @@
-package ru.iteco.teachbase.springjunior.gateway.api;
+package ru.iteco.teachbase.springjunior.gateway.api.service;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
+import ru.iteco.teachbase.springjunior.gateway.api.model.AuthRequest;
+import ru.iteco.teachbase.springjunior.gateway.api.model.AuthResponse;
 
 @Component
 class TokenApiServiceImpl implements TokenApiService {

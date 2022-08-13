@@ -1,4 +1,4 @@
-package ru.iteco.teachbase.springjunior.gateway.api;
+package ru.iteco.teachbase.springjunior.gateway.api.service;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
@@ -6,6 +6,7 @@ import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
+import ru.iteco.teachbase.springjunior.gateway.api.model.ConverterRequest;
 
 import java.math.BigDecimal;
 
