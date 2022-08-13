@@ -8,6 +8,7 @@
         <module>currency-service</module>
         <module>stock-service</module>
         <module>gateway-api</module>
+        <module>cloud-gateway</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

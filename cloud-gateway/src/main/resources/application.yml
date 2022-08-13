@@ -1,0 +1,32 @@
+server:
+  port: 8890
+
+service:
+  currency:
+    uri: http://localhost:8090
+    path:
+      all-exchange: /latest
+      convert: /convert
+    audience: currency-service
+  stock:
+    uri: http://localhost:8070/stock
+    path:
+      quoteByTickers: getQuoteByTickers
+      endOfDayMultiple: getEndOfDayMultiple
+    audience: stock-service
+
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          auth0:
+            client-id: jhYUBYYBIJKINBYyguygd787asdbbjk
+            client-secret: jkdsfkj98*(ihjfkkII(UHdnbkklcjhvsd8ufh99o43nnklH*(Y`kijkfoijm
+            scope:
+              - openid
+              - profile
+              - email
+        provider:
+          auth0:
+            issuer-uri: https://dev-dnqy-t57.eu.auth0.com/
