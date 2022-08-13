@@ -27,8 +27,8 @@ public class SecurityConfiguration {
         http
             .csrf().disable()
             .authorizeRequests()
-            .antMatchers("/getQuoteByTickers").hasAnyAuthority("pro", "base")
-            .antMatchers("/getEndOfDayMultiple").hasAuthority("pro")
+            .antMatchers("/getQuoteByTickers").hasAnyAuthority("SCOPE_pro", "SCOPE_base")
+            .antMatchers("/getEndOfDayMultiple").hasAuthority("SCOPE_pro")
 //            .antMatchers("/auth/**").permitAll()
             .anyRequest().authenticated()
             .and().oauth2ResourceServer().jwt();
