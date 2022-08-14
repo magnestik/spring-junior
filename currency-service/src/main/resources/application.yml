@@ -7,6 +7,8 @@ spring:
       resourceserver:
         jwt:
           issuer-uri: https://dev-dnqy-t57.eu.auth0.com/
+  application:
+    name: currency-service
 
 currency:
   token: 2qBJkeJDE0X3Trdi9y3tuduuKnKblmOT
@@ -16,3 +18,8 @@ currency:
 
 auth:
   audience: currency-service
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:9999/eureka

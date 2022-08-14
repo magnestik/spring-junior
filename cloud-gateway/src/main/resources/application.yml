@@ -3,13 +3,13 @@ server:
 
 service:
   currency:
-    uri: http://localhost:8090
+    uri: lb://CURRENCY-SERVICE
     path:
       all-exchange: /latest
       convert: /convert
     audience: currency-service
   stock:
-    uri: http://localhost:8070/stock
+    uri: lb://STOCK-SERVICE
     path:
       quoteByTickers: getQuoteByTickers
       endOfDayMultiple: getEndOfDayMultiple
@@ -21,8 +21,10 @@ spring:
       client:
         registration:
           auth0:
+            provider: auth0
             client-id: jhYUBYYBIJKINBYyguygd787asdbbjk
             client-secret: jkdsfkj98*(ihjfkkII(UHdnbkklcjhvsd8ufh99o43nnklH*(Y`kijkfoijm
+            authorization-grant-type: authorization_code
             scope:
               - openid
               - profile
@@ -30,3 +32,11 @@ spring:
         provider:
           auth0:
             issuer-uri: https://dev-dnqy-t57.eu.auth0.com/
+      resourceserver:
+        jwt:
+          issuer-uri: https://dev-dnqy-t57.eu.auth0.com/
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:9999/eureka

@@ -30,3 +30,8 @@ spring:
         provider:
           auth0:
             issuer-uri: https://dev-dnqy-t57.eu.auth0.com/
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:9999/eureka

@@ -22,6 +22,7 @@ public class SecurityConfig {
             .authorizeRequests()
             .antMatchers("/convert").hasAuthority("SCOPE_pro")
             .antMatchers("/latest").hasAnyAuthority("SCOPE_base", "SCOPE_pro")
+            .antMatchers("/actuator/**").anonymous()
             .anyRequest().authenticated()
             .and().oauth2ResourceServer().jwt();
         return http.build();

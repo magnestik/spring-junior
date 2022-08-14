@@ -14,7 +14,8 @@ public class OAuth2SecurityConfig {
     public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
         http.csrf().disable()
             .authorizeExchange().anyExchange().authenticated()
-            .and().oauth2Login();
+            .and().oauth2Login()
+            .and().oauth2ResourceServer().jwt();
         return http.build();
     }
 }

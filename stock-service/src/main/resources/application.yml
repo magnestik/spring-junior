@@ -18,6 +18,8 @@ spring:
       resourceserver:
         jwt:
           issuer-uri: https://dev-dnqy-t57.eu.auth0.com/
+  application:
+    name: stock-service
 
 security:
   jwt:
@@ -26,3 +28,8 @@ security:
 
 auth:
   audience: stock-service
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:9999/eureka
